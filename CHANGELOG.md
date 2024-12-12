@@ -55,7 +55,7 @@
   Make `.safe()` the default return value for actions. This means `{ data, error }` will be returned when calling an action directly. If you prefer to get the data while allowing errors to throw, chain the `.orThrow()` modifier.
 
   ```ts
-  import { actions } from 'astro:actions';
+  import { actions } from "astro:actions";
 
   // Before
   const { data, error } = await actions.like.safe();
@@ -133,18 +133,18 @@
   This new function should be preferred when using the Container API in environments like on-demand pages:
 
   ```ts
-  import type { APIRoute } from 'astro';
-  import { experimental_AstroContainer } from 'astro/container';
-  import reactRenderer from '@astrojs/react/server.js';
-  import vueRenderer from '@astrojs/vue/server.js';
-  import ReactComponent from '../components/button.jsx';
-  import VueComponent from '../components/button.vue';
+  import type { APIRoute } from "astro";
+  import { experimental_AstroContainer } from "astro/container";
+  import reactRenderer from "astro-react-swc/server.js";
+  import vueRenderer from "@astrojs/vue/server.js";
+  import ReactComponent from "../components/button.jsx";
+  import VueComponent from "../components/button.vue";
 
   // MDX runtime is contained inside the Astro core
-  import mdxRenderer from 'astro/jsx/server.js';
+  import mdxRenderer from "astro/jsx/server.js";
 
   // In case you need to import a custom renderer
-  import customRenderer from '../renderers/customRenderer.js';
+  import customRenderer from "../renderers/customRenderer.js";
 
   export const GET: APIRoute = async (ctx) => {
     const container = await experimental_AstroContainer.create();
@@ -153,7 +153,7 @@
     container.addServerRenderer({ renderer: customRenderer });
     // You can pass a custom name too
     container.addServerRenderer({
-      name: 'customRenderer',
+      name: "customRenderer",
       renderer: customRenderer,
     });
     const vueComponent = await container.renderToString(VueComponent);
@@ -168,20 +168,20 @@
 - [#11144](https://github.com/withastro/astro/pull/11144) [`803dd80`](https://github.com/withastro/astro/commit/803dd8061df02138b4928442bcb76e77dcf6f5e7) Thanks [@ematipico](https://github.com/ematipico)! - The integration now exposes a function called `getContainerRenderer`, that can be used inside the Container APIs to load the relative renderer.
 
   ```js
-  import { experimental_AstroContainer as AstroContainer } from 'astro/container';
-  import ReactWrapper from '../src/components/ReactWrapper.astro';
-  import { loadRenderers } from 'astro:container';
-  import { getContainerRenderer } from '@astrojs/react';
+  import { experimental_AstroContainer as AstroContainer } from "astro/container";
+  import ReactWrapper from "../src/components/ReactWrapper.astro";
+  import { loadRenderers } from "astro:container";
+  import { getContainerRenderer } from "@astrojs/react";
 
-  test('ReactWrapper with react renderer', async () => {
+  test("ReactWrapper with react renderer", async () => {
     const renderers = await loadRenderers([getContainerRenderer()]);
     const container = await AstroContainer.create({
       renderers,
     });
     const result = await container.renderToString(ReactWrapper);
 
-    expect(result).toContain('Counter');
-    expect(result).toContain('Count: <!-- -->5');
+    expect(result).toContain("Counter");
+    expect(result).toContain("Count: <!-- -->5");
   });
   ```
 
@@ -194,13 +194,13 @@
   This example calls a `like` action that accepts a `postId` and returns the number of likes. Pass this action to the `experimental_withState()` function to apply progressive enhancement info, and apply to `useActionState()` to track the result:
 
   ```tsx
-  import { actions } from 'astro:actions';
-  import { experimental_withState } from '@astrojs/react/actions';
+  import { actions } from "astro:actions";
+  import { experimental_withState } from "astro-react-swc/actions";
 
   export function Like({ postId }: { postId: string }) {
     const [state, action, pending] = useActionState(
       experimental_withState(actions.like),
-      0, // initial likes
+      0 // initial likes
     );
 
     return (
@@ -215,8 +215,8 @@
   You can also access the state stored by `useActionState()` from your action `handler`. Call `experimental_getActionState()` with the API context, and optionally apply a type to the result:
 
   ```ts
-  import { defineAction, z } from 'astro:actions';
-  import { experimental_getActionState } from '@astrojs/react/actions';
+  import { defineAction, z } from "astro:actions";
+  import { experimental_getActionState } from "astro-react-swc/actions";
 
   export const server = {
     like: defineAction({

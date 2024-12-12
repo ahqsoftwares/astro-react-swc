@@ -11,18 +11,18 @@ export function isUnsupportedVersion(majorVersion) {
 }
 export const versionsConfig = {
     17: {
-        server: '@astrojs/react/server-v17.js',
-        client: '@astrojs/react/client-v17.js',
+        server: 'astro-react-swc/server-v17.js',
+        client: 'astro-react-swc/client-v17.js',
         externals: ['react-dom/server.js', 'react-dom/client.js'],
     },
     18: {
-        server: '@astrojs/react/server.js',
-        client: '@astrojs/react/client.js',
+        server: 'astro-react-swc/server.js',
+        client: 'astro-react-swc/client.js',
         externals: ['react-dom/server', 'react-dom/client'],
     },
     19: {
-        server: '@astrojs/react/server.js',
-        client: '@astrojs/react/client.js',
+        server: 'astro-react-swc/server.js',
+        client: 'astro-react-swc/client.js',
         externals: ['react-dom/server', 'react-dom/client'],
     },
 };
