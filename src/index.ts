@@ -1,6 +1,15 @@
 import react from '@vitejs/plugin-react-swc';
 import type { ParserConfig, JscTarget } from "@swc/core";
 
+const runtimePublicPath = "/@react-refresh";
+const preambleCode = `
+import RefreshRuntime from "__BASE__${runtimePublicPath.slice(1)}"
+RefreshRuntime.injectIntoGlobalHook(window)
+window.$RefreshReg$ = () => {}
+window.$RefreshSig$ = () => (type) => type
+window.__vite_plugin_react_preamble_installed__ = true
+`;
+
 type ViteReactPluginOptions = {
 	/**
 	 * Control where the JSX factory is imported from.
@@ -131,6 +140,8 @@ export default function ({
 					),
 				});
 				if (command === 'dev') {
+					const preamble = preambleCode.replace(`__BASE__`, '/');
+					injectScript('before-hydration', preamble);
 				}
 			},
 		},

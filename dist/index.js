@@ -1,4 +1,12 @@
 import react from '@vitejs/plugin-react-swc';
+const runtimePublicPath = "/@react-refresh";
+const preambleCode = `
+import RefreshRuntime from "__BASE__${runtimePublicPath.slice(1)}"
+RefreshRuntime.injectIntoGlobalHook(window)
+window.$RefreshReg$ = () => {}
+window.$RefreshSig$ = () => (type) => type
+window.__vite_plugin_react_preamble_installed__ = true
+`;
 import { getReactMajorVersion, isUnsupportedVersion, versionsConfig, } from './version.js';
 function getRenderer(reactConfig) {
     return {
@@ -72,6 +80,8 @@ export default function ({ devTarget, jsxImportSource, parserConfig, plugins, ts
                     vite: getViteConfiguration({ devTarget, jsxImportSource, parserConfig, plugins, tsDecorators, experimentalReactChildren }, versionConfig),
                 });
                 if (command === 'dev') {
+                    const preamble = preambleCode.replace(`__BASE__`, '/');
+                    injectScript('before-hydration', preamble);
                 }
             },
         },
