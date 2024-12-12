@@ -1,0 +1,77 @@
+{
+  "name": "astro-react-swc",
+  "description": "Use React components within Astro",
+  "version": "4.1.0",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "author": "ahq",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/withastro/astro.git",
+    "directory": "packages/integrations/react"
+  },
+  "keywords": [
+    "astro-integration",
+    "astro-component",
+    "renderer",
+    "react"
+  ],
+  "bugs": "https://github.com/withastro/astro/issues",
+  "homepage": "https://docs.astro.build/en/guides/integrations-guide/react/",
+  "exports": {
+    ".": "./dist/index.js",
+    "./actions": "./dist/actions.js",
+    "./client.js": "./client.js",
+    "./client-v17.js": "./client-v17.js",
+    "./server.js": "./server.js",
+    "./server-v17.js": "./server-v17.js",
+    "./package.json": "./package.json",
+    "./jsx-runtime": "./jsx-runtime.js"
+  },
+  "files": [
+    "dist",
+    "client.js",
+    "client-v17.js",
+    "context.js",
+    "jsx-runtime.js",
+    "server.js",
+    "server.d.ts",
+    "server-v17.js",
+    "server-v17.d.ts",
+    "static-html.js",
+    "vnode-children.js"
+  ],
+  "scripts": {
+    "build": "astro-scripts build \"src/**/*.ts\" && tsc",
+    "build:ci": "astro-scripts build \"src/**/*.ts\"",
+    "dev": "astro-scripts dev \"src/**/*.ts\"",
+    "test": "astro-scripts test \"test/**/*.test.js\""
+  },
+  "dependencies": {
+    "@vitejs/plugin-react-swc": "^3.7.2",
+    "ultrahtml": "^1.5.3",
+    "vite": "^6.0.3"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.10.1",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.2",
+    "astro": "^5.0.5",
+    "cheerio": "1.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^17.0.50 || ^18.0.21 || ^19.0.0",
+    "@types/react-dom": "^17.0.17 || ^18.0.6 || ^19.0.0",
+    "react": "^17.0.2 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^17.0.2 || ^18.0.0 || ^19.0.0"
+  },
+  "engines": {
+    "node": "^18.17.1 || ^20.3.0 || >=22.0.0"
+  },
+  "publishConfig": {
+    "provenance": true
+  }
+}
